@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://btfjhwwfqdil0"]
+
+[ext_resource type="Shader" path="res://water.gdshader" id="1_p2fbf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otlfr"]
+resource_local_to_scene = true
+shader = ExtResource("1_p2fbf")
+shader_parameter/phase = 0.2
+shader_parameter/attenuation = 0.999
+shader_parameter/deltaUV = 3.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_otlfr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

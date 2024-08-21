@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://gr3ohptbi48y"]
+
+[ext_resource type="PackedScene" uid="uid://sx453uksc1v4" path="res://falling_block.tscn" id="1_fjkvb"]
+[ext_resource type="Script" path="res://main.gd" id="1_yi148"]
+[ext_resource type="Shader" path="res://floor.gdshader" id="2_3whsd"]
+[ext_resource type="PackedScene" uid="uid://bcyscho5ykgps" path="res://player.tscn" id="2_fgutv"]
+[ext_resource type="PackedScene" uid="uid://226t7qdqi4r5" path="res://coin.tscn" id="4_o4gql"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvxtk"]
+size = Vector3(10, 0.001, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gn6u"]
+render_priority = 0
+shader = ExtResource("2_3whsd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_54pvt"]
+material = SubResource("ShaderMaterial_1gn6u")
+size = Vector2(10, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubdtk"]
+
+[sub_resource type="Sky" id="Sky_fkjgu"]
+sky_material = SubResource("ProceduralSkyMaterial_ubdtk")
+
+[sub_resource type="Environment" id="Environment_7t078"]
+background_mode = 2
+sky = SubResource("Sky_fkjgu")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_yi148")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_gvxtk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_54pvt")
+
+[node name="Player" parent="." instance=ExtResource("2_fgutv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47401, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10.1509, 7.81988)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.824334, 0, 0.566104, 0, 1, 0, -0.566104, 0, 0.824334, 4.41485, 2.433, 4.35016)
+visible = false
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="FallingBlock" parent="Blocks" instance=ExtResource("1_fjkvb")]
+transform = Transform3D(0.919402, 0.326014, -0.220033, -0.31706, 0.945365, 0.0758795, 0.232749, 0, 0.972537, -4.2562, 2.17674, -2.67695)
+
+[node name="FallingBlock2" parent="Blocks" instance=ExtResource("1_fjkvb")]
+transform = Transform3D(0.710008, 0.353116, 0.60926, -0.267978, 0.93558, -0.229953, -0.651211, 0, 0.758896, 0, 3.775, 0.710185)
+
+[node name="FallingBlock3" parent="Blocks" instance=ExtResource("1_fjkvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.22607, 0.588166, 0)
+
+[node name="FallingBlock4" parent="Blocks" instance=ExtResource("1_fjkvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.65432, 1.38937)
+
+[node name="Coin" parent="." instance=ExtResource("4_o4gql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60417, 3.20647)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7t078")
